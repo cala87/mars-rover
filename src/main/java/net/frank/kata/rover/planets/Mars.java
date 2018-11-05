@@ -39,9 +39,9 @@ public class Mars {
         });
         printedMap.append("\n");
 
-        for (int x = 0; x < Mars.SIZE; x++) {
+        for (int y = Mars.SIZE - 1; y >= 0; y--) {
             printedMap.append("|");
-            for (int y = 0; y < Mars.SIZE; y++) {
+            for (int x = 0; x < Mars.SIZE; x++) {
                 printedMap.append(" ");
                 if (x == actualCoordinates.getX()
                         && y == actualCoordinates.getY()) {
