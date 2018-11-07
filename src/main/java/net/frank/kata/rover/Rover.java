@@ -52,10 +52,10 @@ public class Rover {
 
         private Map<To, Command> commandMap = new EnumMap<To, Command>(To.class) {
             {
-                commandMap.put(To.FORWARD, new MoveForward());
-                commandMap.put(To.BACKWARD, new MoveBackward());
-                commandMap.put(To.LEFT, new RotateLeft());
-                commandMap.put(To.RIGHT, new RotateRight());
+                put(To.FORWARD, new MoveForward());
+                put(To.BACKWARD, new MoveBackward());
+                put(To.LEFT, new RotateLeft());
+                put(To.RIGHT, new RotateRight());
             }
         };
 

@@ -17,4 +17,11 @@ public class RoverTest {
         assertThat(rover)
                 .isEqualTo(new Rover(1, 1, Direction.NORTH));
     }
+
+    @Test(expected = IllegalCommandException.class)
+    public void randomWrongSequenceCommandTest() throws IllegalCommandException {
+        Rover rover = new Rover(1, 1, Direction.NORTH);
+
+        rover.perform("abcdefghil");
+    }
 }
