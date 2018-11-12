@@ -3,7 +3,7 @@ package net.frank.kata.rover.planets;
 import lombok.extern.slf4j.Slf4j;
 import net.frank.kata.rover.Coordinates;
 import net.frank.kata.rover.Direction;
-import net.frank.kata.rover.Map;
+import net.frank.kata.rover.PlanetMap;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -21,9 +21,9 @@ public class MarsTest {
 
         Set<Coordinates> obstacles = new HashSet<>(Arrays.asList(new Coordinates(3, 4), new Coordinates(5, 5)));
 
-        Map marsMap = new Map(Planet.MARS, obstacles);
+        PlanetMap marsPlanetMap = new PlanetMap(Planet.MARS, obstacles);
 
-        String map = marsMap.render(new Coordinates(2, 1), Direction.NORTH);
+        String map = marsPlanetMap.render(new Coordinates(2, 1), Direction.NORTH);
 
         assertThat(map).isEqualTo("  -----------------------------------------\n" +
                                   "9 |   |   |   |   |   |   |   |   |   |   |\n" +
@@ -53,15 +53,15 @@ public class MarsTest {
 
     @Test
     public void printMapWithRandomObstacleTest() {
-        Map marsMap = new Map(Planet.MARS, 5);
+        PlanetMap marsPlanetMap = new PlanetMap(Planet.MARS, 5);
 
 
         FailedLandingException failedLandingException = catchThrowableOfType(() -> {
-            marsMap.setStartPoint(new Coordinates(2, 1));
-            log.info("\n{}", marsMap.render(new Coordinates(2, 1), Direction.NORTH));
+            marsPlanetMap.init(new Coordinates(2, 1));
+            log.info("\n{}", marsPlanetMap.render(new Coordinates(2, 1), Direction.NORTH));
         }, FailedLandingException.class);
 
-        if (failedLandingException != null) log.info("Managed test case - {}", failedLandingException);
+        if (failedLandingException != null) log.info("Managed landing failed test case - {}", failedLandingException.getMessage(), failedLandingException);
 
     }
 

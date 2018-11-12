@@ -9,26 +9,30 @@ import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class Map {
+public class PlanetMap {
 
     private static final String OBSTACLE = "O";
 
     private final Planet planet;
     private final int numObstacles;
 
+    private final Coordinates bottomBorder = new Coordinates(0, 0);
+    private final Coordinates topBorder;
+
     private Set<Coordinates> obstacles = Collections.emptySet();
 
-    public Map(Planet planet, int numObstacles) {
+    public PlanetMap(Planet planet, int numObstacles) {
         this.planet = planet;
         this.numObstacles = numObstacles;
+        topBorder = new Coordinates(planet.getSize() - 1, planet.getSize() - 1);
     }
 
-    public Map(Planet planet, Set<Coordinates> obstacles) {
+    public PlanetMap(Planet planet, Set<Coordinates> obstacles) {
         this(planet, obstacles.size());
         this.obstacles = obstacles;
     }
 
-    public void setStartPoint(Coordinates coordinates) throws FailedLandingException {
+    public void init(Coordinates coordinates) throws FailedLandingException {
         if (obstacles.isEmpty()) {
             obstacles = generateObstacles(numObstacles);
         }
@@ -105,4 +109,16 @@ public class Map {
     }
 
 
+    public Coordinates checkCoordinates(Coordinates coordinates) {
+        int x = coordinates.getX();
+        int y = coordinates.getY();
+
+        if (x > topBorder.getX()) x -= bottomBorder.getX();
+        if (x < bottomBorder.getX()) x += bottomBorder.getX();
+
+        if (y > topBorder.getY()) x -= bottomBorder.getY();
+        if (y < bottomBorder.getY()) x += bottomBorder.getY();
+
+        return new Coordinates(x, y);
+    }
 }
