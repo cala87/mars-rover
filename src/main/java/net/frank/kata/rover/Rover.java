@@ -76,7 +76,7 @@ public class Rover {
         }
 
         nextCoordinates = planetMap.checkCoordinatesWithBorders(nextCoordinates);
-        if (planetMap.hasObstacle(nextCoordinates)) throw new ObstacleOnPathException();
+        if (planetMap.hasObstacle(nextCoordinates)) throw new ObstacleOnPathException(coordinates, nextCoordinates);
 
         coordinates = nextCoordinates;
 
