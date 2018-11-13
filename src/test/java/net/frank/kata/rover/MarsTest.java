@@ -1,9 +1,8 @@
-package net.frank.kata.rover.planets;
+package net.frank.kata.rover;
 
 import lombok.extern.slf4j.Slf4j;
-import net.frank.kata.rover.Coordinates;
-import net.frank.kata.rover.Direction;
-import net.frank.kata.rover.PlanetMap;
+import net.frank.kata.rover.planets.FailedLandingException;
+import net.frank.kata.rover.planets.Planet;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -63,6 +62,19 @@ public class MarsTest {
 
         if (failedLandingException != null) log.info("Managed landing failed test case - {}", failedLandingException.getMessage(), failedLandingException);
 
+    }
+
+    @Test
+    public void checkCoordinatesWithBorderTest() {
+
+        Set<Coordinates> obstacles = new HashSet<>(Arrays.asList(new Coordinates(3, 4), new Coordinates(5, 5)));
+
+        PlanetMap marsPlanetMap = new PlanetMap(Planet.MARS, obstacles);
+
+        assertThat(marsPlanetMap.checkCoordinatesWithBorders(new Coordinates(10, 2))).isEqualTo(new Coordinates(0, 2));
+        assertThat(marsPlanetMap.checkCoordinatesWithBorders(new Coordinates(6, 10))).isEqualTo(new Coordinates(6, 0));
+        assertThat(marsPlanetMap.checkCoordinatesWithBorders(new Coordinates(-1, 2))).isEqualTo(new Coordinates(9, 2));
+        assertThat(marsPlanetMap.checkCoordinatesWithBorders(new Coordinates(6, -1))).isEqualTo(new Coordinates(6, 9));
     }
 
 }
