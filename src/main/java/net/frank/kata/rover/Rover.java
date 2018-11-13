@@ -19,11 +19,9 @@ import java.util.Map;
 @EqualsAndHashCode
 public class Rover {
 
-    @Getter
-    private Coordinates coordinates;
+    @Getter private Coordinates coordinates;
+    @Getter private Direction direction;
     private Coordinates nextCoordinates;
-    @Getter
-    private Direction direction;
 
     private final PlanetMap planetMap;
 
@@ -33,11 +31,16 @@ public class Rover {
         this.planetMap = planetMap;
     }
 
-    public void performLanding() throws FailedLandingException {
-        planetMap.init(coordinates);
+    public Rover(Coordinates coordinates, Direction direction, PlanetMap planetMap) {
+        this.coordinates = coordinates;
+        this.direction = direction;
+        this.planetMap = planetMap;
     }
 
-    public void perform(String commandMsg) throws IllegalCommandException, ObstacleOnPathException {
+    public void perform(String commandMsg) throws IllegalCommandException, ObstacleOnPathException, FailedLandingException {
+
+        planetMap.init(coordinates);
+
         CommandParser parser = new CommandParser(commandMsg);
         List<Command> commands = parser.parse();
 
@@ -72,7 +75,7 @@ public class Rover {
                 throw new IllegalStateException("Operation not supported by this engine");
         }
 
-        nextCoordinates = planetMap.checkCoordinates(nextCoordinates);
+        nextCoordinates = planetMap.checkCoordinatesWithBorders(nextCoordinates);
         if (planetMap.hasObstacle(nextCoordinates)) throw new ObstacleOnPathException();
 
         coordinates = nextCoordinates;
@@ -115,7 +118,6 @@ public class Rover {
 
             return commandList;
         }
-
 
     }
 

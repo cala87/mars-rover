@@ -108,8 +108,7 @@ public class PlanetMap {
         return new Random().nextInt(planet.getSize() - 1);
     }
 
-
-    public Coordinates checkCoordinates(Coordinates coordinates) {
+    public Coordinates checkCoordinatesWithBorders(Coordinates coordinates) {
         int x = coordinates.getX();
         int y = coordinates.getY();
 
