@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.frank.kata.rover.commands.*;
 import net.frank.kata.rover.common.Command;
 import net.frank.kata.rover.common.To;
+import net.frank.kata.rover.planets.FailedLandingException;
 import net.frank.kata.rover.planets.ObstacleOnPathException;
 
 import java.util.EnumMap;
@@ -30,6 +31,10 @@ public class Rover {
         this.coordinates = new Coordinates(x, y);
         this.direction = direction;
         this.planetMap = planetMap;
+    }
+
+    public void performLanding() throws FailedLandingException {
+        planetMap.init(coordinates);
     }
 
     public void perform(String commandMsg) throws IllegalCommandException, ObstacleOnPathException {
