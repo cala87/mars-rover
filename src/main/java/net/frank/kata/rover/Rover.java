@@ -1,6 +1,7 @@
 package net.frank.kata.rover;
 
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 import net.frank.kata.rover.commands.*;
@@ -17,9 +18,12 @@ import java.util.Map;
 @EqualsAndHashCode
 public class Rover {
 
+    @Getter
     private Coordinates coordinates;
     private Coordinates nextCoordinates;
+    @Getter
     private Direction direction;
+
     private final PlanetMap planetMap;
 
     public Rover(int x, int y, Direction direction, PlanetMap planetMap) {

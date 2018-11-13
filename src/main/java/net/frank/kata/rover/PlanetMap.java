@@ -113,11 +113,11 @@ public class PlanetMap {
         int x = coordinates.getX();
         int y = coordinates.getY();
 
-        if (x > topBorder.getX()) x -= bottomBorder.getX();
-        if (x < bottomBorder.getX()) x += bottomBorder.getX();
+        if (x > topBorder.getX()) x = x - topBorder.getX() - 1;
+        if (x < bottomBorder.getX()) x = x + topBorder.getX() + 1;
 
-        if (y > topBorder.getY()) x -= bottomBorder.getY();
-        if (y < bottomBorder.getY()) x += bottomBorder.getY();
+        if (y > topBorder.getY()) y = y - topBorder.getY() - 1;
+        if (y < bottomBorder.getY()) y = y + topBorder.getY() + 1;
 
         return new Coordinates(x, y);
     }

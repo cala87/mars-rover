@@ -42,5 +42,9 @@ public class RoverTest {
         Rover rover = new Rover(1, 1, Direction.NORTH, map);
 
         rover.perform("fblrfflbb");
+
+        assertThat(rover.getCoordinates()).isEqualTo(new Coordinates(3,3));
+        assertThat(rover.getDirection()).isEqualTo(Direction.WEST);
     }
+
 }
